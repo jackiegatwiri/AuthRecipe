@@ -7,7 +7,7 @@ const app = express();
 
 // Border parser
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+//app.use(express.json());
 
 // Routes
 app.use('/', require('./routes/index'));
