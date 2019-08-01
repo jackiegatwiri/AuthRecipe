@@ -1,32 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const passport = require('passport');
-const session = require('express-session');
 
 const app = express();
-
-
-// Passport Config
-require('./config/passport')(passport);
 
 
 
 // Border parser
 //app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-// Express session
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-  })
-);
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Routes
 app.use('/', require('./routes/index'));

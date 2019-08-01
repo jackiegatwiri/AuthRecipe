@@ -74,12 +74,29 @@ router.post('/register', (req, res)=>{
 });
 
 //Login handle
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/users/login',
-    failureRedirect: '/users/login',
-    failureFlash: true
-  })(req, res, next);
+router.post('/login',async (req, res)=>{
+    const {email, password} = req.body;
+    let errors = [];
+
+    //Check required fields
+    if(!email || !password){
+        errors.push({msg: 'Please fill in all the fields'});
+        res.send({message:'Please fill in all the fields'});
+    }
+
+    try {
+        const user = await User.findOne({ email: req.body.email }).exec();
+        if(!user) {
+            return res.status(400).send({ message: "Email not registered" });
+        }
+        if(!bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(400).send({ message: "The password is invalid" });
+        }
+        res.send({ message: "Login succesful" });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
 });
 
 // Logout Page
