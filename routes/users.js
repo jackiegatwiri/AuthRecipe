@@ -87,14 +87,14 @@ router.post('/login',async (req, res)=>{
     try {
         const user = await User.findOne({ email: req.body.email }).exec();
         if(!user) {
-            return res.status(400).send({ message: "Email not registered" });
+            return res.send("Email not registered").send({ message: "Email not registered" });
         }
         if(!bcrypt.compareSync(req.body.password, user.password)) {
-            return res.status(400).send({ message: "The password is invalid" });
+            return res.send("Password Invalid").send({ message: "The password is invalid" });
         }
         res.send({ message: "Login succesful" });
     } catch (error) {
-        res.status(500).send(error);
+        res.send("Internal server Error").send(error);
     }
 
 });
