@@ -47,9 +47,7 @@ router.post('/register', (req, res)=>{
                     //user exists
                     errors.push({msg: 'email is already registered'})
                     res.send({message:'email is already registered'});
-                }
-                try{
-                    else{
+                }else{
                     const newUser = new User({
                         name,
                         email,
@@ -70,12 +68,6 @@ router.post('/register', (req, res)=>{
                     }))
 
                     res.send({message:'Welcome!'})
-                }
-                }
-                catch(error) {
-
-                    res.send("Internal server Error").send(error);
-
                 }
             });
     }
