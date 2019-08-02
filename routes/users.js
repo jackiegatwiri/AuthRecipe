@@ -92,7 +92,7 @@ router.post('/login',async (req, res)=>{
         if(!bcrypt.compareSync(req.body.password, user.password)) {
             return res.send({message:"Password Invalid"});        
         }
-        res.send({ message: "Succesful" });
+        res.send({ message: "Successful" });
     } 
     catch (error) {
         res.send("Internal server Error").send(error);
